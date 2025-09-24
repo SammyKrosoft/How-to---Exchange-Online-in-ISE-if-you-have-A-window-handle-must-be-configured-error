@@ -22,7 +22,7 @@ To solve this I used the information from [David Homer's website](https://david-
 # Login string
 $Login = "your_User_Principal_Name@Your_Domain.ext"
 
-# Routing from https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html
+# Routine from https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html
 $msalPath = [System.IO.Path]::GetDirectoryName((Get-Module ExchangeOnlineManagement).Path);
 Add-Type -Path "$msalPath\Microsoft.IdentityModel.Abstractions.dll";
 Add-Type -Path "$msalPath\Microsoft.Identity.Client.dll";
