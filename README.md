@@ -3,7 +3,7 @@
 
 Here is the complete error:
 
-```powershell
+```output
 PS C:\WINDOWS\system32> Connect-ExchangeOnline -UserPrincipalName $Login
 Error Acquiring Token:
 A window handle must be configured. See https://aka.ms/msal-net-wam#parent-window-handles
