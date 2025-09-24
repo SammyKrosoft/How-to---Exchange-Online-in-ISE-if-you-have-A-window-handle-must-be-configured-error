@@ -18,7 +18,7 @@ Files\WindowsPowerShell\Modules\ExchangeOnlineManagement\3.9.0\netFramework\Exch
 
 # Preferred method - Handling MSAL authentication yourself
 
-To solve this I used the information from [David Homer's website](https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html) and use the below routine, which is preferred than to downgrade your ExchangeOnline module version, 
+To solve this I used the information from [David Homer's website](https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html) and use the below routine, which is preferred than to downgrade your ExchangeOnline module version:
 
 ```powershell
 # Login string
