@@ -16,7 +16,9 @@ Files\WindowsPowerShell\Modules\ExchangeOnlineManagement\3.9.0\netFramework\Exch
     + FullyQualifiedErrorId : A window handle must be configured. See https://aka.ms/msal-net-wam#parent-window-handles
 ```
 
-To solve this I used the information from [David Homer's website](https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html) :
+# Preferred method - Handling MSAL authentication yourself
+
+To solve this I used the information from [David Homer's website](https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html) and use the below routine, which is preferred than to downgrade your ExchangeOnline module version, 
 
 ```powershell
 # Login string
@@ -31,4 +33,41 @@ $result = $application.AcquireTokenInteractive([string[]]"https://outlook.office
 Connect-ExchangeOnline -AccessToken $result.AccessToken -UserPrincipalName $login;
 ```
 
+# Alternative - Open a console window from PowerShell IDE
 
+From David Homer's own words: *"You can also open a console window in PowerShell ISE or your windows application, this is not great as it opens a console window in the background."*
+
+```powershell
+$consoleSupportSource = @’
+using System;
+using System.Runtime.InteropServices;
+public class ConsoleSupportMethods
+{
+   [DllImport("kernel32.dll", SetLastError = true)]
+   public static extern int AllocConsole();
+
+   [DllImport("kernel32.dll", SetLastError = true)]
+   public static extern int FreeConsole();
+}
+‘@
+
+Add-Type -TypeDefinition $consoleSupportSource
+try
+{
+   [ConsoleSupportMethods]::AllocConsole();
+   Connect-ExchangeOnline;
+}
+catch
+{
+   throw;
+}
+finally
+{
+   [ConsoleSupportMethods]::FreeConsole();
+}
+```
+
+# Credits
+
+- Thanks to David Homer [(view his profile here)](https://www.blogger.com/profile/09004880670776520228)
+- His related blog post is already mentionned above but I put it [here again](https://david-homer.blogspot.com/2025/01/exchange-online-management-powershell.html)
